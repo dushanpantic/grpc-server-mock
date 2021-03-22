@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package foo.bar.baz;
+
+service SomeSvc {
+  rpc actione(Cool) returns (Response);
+}
+
+
+message Cool {
+  string text = 1;
+}
+
+message Response {
+  string text = 1;
+}
