@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+
+service SomeOtherSvc {
+  rpc first(Request) returns (Response);
+  rpc second(Request) returns (Response);
+}
+
+
+message Request {
+  string text = 1;
+}
+
+message Response {
+  string text = 1;
+}

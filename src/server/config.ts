@@ -1,22 +1,21 @@
-
 export interface IServerConfig {
   host: string;
   port: string | number;
   protos: IProto[];
 }
 
-interface IProto {
+export interface IProto {
   protoFilePath: string;
   packageName: string;
   services: IService[];
 }
 
-interface IService {
+export interface IService {
   name: string;
-  responseHandlers: IResponseHandler[]
+  responseHandlers: IResponseHandler[];
 }
 
-interface IResponseHandler {
+export interface IResponseHandler {
   methodName: string;
-  responses: any[];
+  responses: any[] | (() => Promise<any>);
 }
