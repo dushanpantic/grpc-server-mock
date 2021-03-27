@@ -1,6 +1,7 @@
-import { strict as assert } from "assert";
-import { GrpcObject, loadPackageDefinition } from "@grpc/grpc-js";
-import { loadSync, Options } from "@grpc/proto-loader";
+import { strict as assert } from 'assert';
+import { GrpcObject, loadPackageDefinition } from '@grpc/grpc-js';
+import { loadSync, Options } from '@grpc/proto-loader';
+
 
 export default function createDescriptor(protoFile: string): GrpcObject {
   const loaderOptions: Options = {

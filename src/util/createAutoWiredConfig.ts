@@ -1,7 +1,7 @@
-import { join } from "path";
-import { promises, createReadStream } from "fs";
-import { createInterface } from "readline";
-import { IProto, IServerConfig, IService } from "../server/config";
+import { join } from 'path';
+import { promises, createReadStream } from 'fs';
+import { createInterface } from 'readline';
+import { IProto, IServerConfig, IService } from '../server/config';
 
 
 export default async function createAutoWiredConfig(
@@ -26,21 +26,21 @@ export default async function createAutoWiredConfig(
       withFileTypes: true,
     });
     const protoFileName = folderContent
-      .filter((x) => x.name.endsWith(".proto"))
+      .filter((x) => x.name.endsWith('.proto'))
       .find(() => true).name;
     const protoFilePath = join(protoFolderPath, protoFileName);
 
     const readInterface = createInterface({
-      input: createReadStream(protoFilePath, { encoding: "utf-8" }),
+      input: createReadStream(protoFilePath, { encoding: 'utf-8' }),
     });
 
-    let packageName = "";
+    let packageName = '';
     for await (const line of readInterface) {
       const trimmedLine = line.trim();
-      if (!trimmedLine.startsWith("package")) continue;
+      if (!trimmedLine.startsWith('package')) continue;
 
       packageName = trimmedLine
-        .substring("package".length, trimmedLine.length - 1)
+        .substring('package'.length, trimmedLine.length - 1)
         .trim();
       break;
     }
@@ -60,7 +60,7 @@ export default async function createAutoWiredConfig(
 
       const methodFiles = await promises.readdir(serviceFolderPath);
       const methodFilesNames = methodFiles.filter((fileName) =>
-        fileName.endsWith(".json")
+        fileName.endsWith('.json')
       );
 
       const service: IService = {
@@ -71,14 +71,14 @@ export default async function createAutoWiredConfig(
       for (const methodFileName of methodFilesNames) {
         const methodFilePath = join(serviceFolderPath, methodFileName);
         const fileContent = await promises.readFile(methodFilePath, {
-          encoding: "utf-8",
+          encoding: 'utf-8',
         });
         const fileContentParsed = JSON.parse(fileContent);
 
         service.responseHandlers.push({
           methodName: methodFileName.substring(
             0,
-            methodFileName.length - ".json".length
+            methodFileName.length - '.json'.length
           ),
           responses: fileContentParsed,
         });

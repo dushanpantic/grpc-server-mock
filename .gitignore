@@ -106,3 +106,6 @@ dist
 # Reports
 /report
 test-report.xml
+
+# Other
+todo
