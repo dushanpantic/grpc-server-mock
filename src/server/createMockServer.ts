@@ -5,7 +5,7 @@ import {
 } from '@grpc/grpc-js';
 import { IServerConfig } from './config';
 import createDescriptor from './createDescriptor';
-import createServiceDefinition from './createServiceDefinition';
+import extractServiceDefinition from './extractServiceDefinition';
 import getRandomInt from '../util/getRandomInt';
 
 
@@ -16,7 +16,7 @@ export default function createMockServer(config: IServerConfig) {
     const descriptor = createDescriptor(protoDetails.protoFilePath);
 
     for (const service of protoDetails.services) {
-      const serviceDefinition = createServiceDefinition(
+      const serviceDefinition = extractServiceDefinition(
         descriptor,
         protoDetails.packageName,
         service.name

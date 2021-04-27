@@ -4,9 +4,8 @@ import { strict as assert } from 'assert';
 import { get } from 'lodash';
 
 
-export default function createServiceDefinition(descriptor: GrpcObject, packageName: string, serviceName: string): ServiceClientConstructor {
-  const namespace = get(descriptor, packageName);
-  assert.ok(namespace);
+export default function extractServiceDefinition(descriptor: GrpcObject, packageName: string, serviceName: string): ServiceClientConstructor {
+  const namespace = get(descriptor, packageName, descriptor);
   const service: ServiceClientConstructor = namespace[serviceName];
   assert.ok(service);
 

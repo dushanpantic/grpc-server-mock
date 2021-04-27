@@ -3,11 +3,11 @@ syntax = "proto3";
 package foo.bar.baz;
 
 service SomeSvc {
-  rpc actione(Cool) returns (Response);
+  rpc action(Request) returns (Response);
 }
 
 
-message Cool {
+message Request {
   string text = 1;
 }
 
