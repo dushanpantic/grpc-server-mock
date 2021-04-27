@@ -3,12 +3,13 @@ import { CommandModule, Argv } from 'yargs';
 import { join } from 'path';
 import createMockServer from '../server/createMockServer';
 import createAutoWiredConfig from '../util/createAutoWiredConfig';
+import createLogger from 'src/log/createLogger';
 
 export class StartAutoWireCommand implements CommandModule {
   public readonly command = 'start:autowire';
   public readonly describe = 'Autowires grpc server mock using the mock folder';
 
-  public builder(args: Argv): Argv<{ host: string } & { port: string } & { folder: string }> {
+  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, silent: boolean }> {
     return args
       .option('host', {
         default: '127.0.0.1',
@@ -21,6 +22,11 @@ export class StartAutoWireCommand implements CommandModule {
       .option('folder', {
         default: join(__dirname, 'grpc-server-mock'),
         describe: 'Path to folder with files for autowireing.',
+      })
+      .option('silent', {
+        default: false,
+        boolean: true,
+        describe: 'If true, noop logger will be used',
       });
   }
 
@@ -35,7 +41,7 @@ export class StartAutoWireCommand implements CommandModule {
       args.folder as string
     );
 
-    const server = createMockServer(config);
+    const server = createMockServer(config, createLogger(!!args.silent));
 
     server.bindAsync(
       `${config.host}:${config.port}`,

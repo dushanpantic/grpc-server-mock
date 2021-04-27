@@ -7,7 +7,7 @@ export class GenerateConfigCommand implements CommandModule {
   public readonly command = 'generate:config';
   public readonly describe = 'Targets autowire folder and generates JSON config from it';
 
-  public builder(args: Argv): Argv<{ host: string } & { port: string } & { folder: string } & { output: string }> {
+  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, output: string }> {
     return args
       .option('host', {
         default: '127.0.0.1',
