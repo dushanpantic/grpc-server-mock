@@ -1,9 +1,10 @@
 import {
+  Metadata,
   Server,
   ServerUnaryCall,
   UntypedServiceImplementation,
 } from '@grpc/grpc-js';
-import { IServerConfig } from './config';
+import { IResponseHandler, IServerConfig } from './config';
 import createDescriptor from './createDescriptor';
 import extractServiceDefinition from './extractServiceDefinition';
 import getRandomInt from '../util/getRandomInt';
@@ -24,15 +25,15 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
       );
 
       const responseHandlers = service.responseHandlers.reduce(
-        (acc: UntypedServiceImplementation, curr) => {
+        (acc: UntypedServiceImplementation, curr: IResponseHandler) => {
           acc[curr.methodName] = async (
-            call: ServerUnaryCall<unknown, unknown>, // proveri tip
-            callback: (err?: any, value?: any, trailer?: any, flags?: any) => void
+            call: ServerUnaryCall<unknown, unknown>, // ServerUnaryCallImpl<RequestType, ResponseType>
+            callback: (err?: any, value?: any, trailer?: Metadata, flags?: any) => void
           ) => {
             const receivedData = {
               request: call.request,
-              metadata: call.metadata.getMap(),
-              options: call.metadata.getOptions(),
+              metadataMap: call.metadata.getMap(),
+              metadataOptions: call.metadata.getOptions(),
             };
             logger.info('Received call:', receivedData)
             let response: any;
@@ -42,7 +43,8 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               const responseIndex = getRandomInt(curr.responses.length);
               response = curr.responses[responseIndex];
             }
-            callback(null, response);
+            const md = new Metadata();
+            callback(null, response, md);
           };
           return acc;
         },

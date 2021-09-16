@@ -15,9 +15,7 @@ export default async function createAutoWiredConfig(
     protos: [],
   };
 
-  const protoFolderPaths = (
-    await promises.readdir(mockFolderPath, { withFileTypes: true })
-  )
+  const protoFolderPaths = (await promises.readdir(mockFolderPath, { withFileTypes: true }))
     .filter((x) => x.isDirectory())
     .map((dir) => join(mockFolderPath, dir.name));
 
