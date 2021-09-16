@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import * as yargs from 'yargs';
 import { GenerateConfigCommand } from './commands/GenerateConfigCommand';
 import { StartAutoWireCommand } from './commands/StartAutoWireCommand';
