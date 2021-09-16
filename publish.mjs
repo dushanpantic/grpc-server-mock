@@ -16,8 +16,14 @@ const isPublished = await($`npm view ${packageName} versions -json`)
 
 const branch = await $`git branch --show-current`.stdout;
 
-if(branch === 'master') {
-  await $`npm publish`
+if (!isPublished) {
+  if (branch === 'master') {
+    console.log(`Publishing ${packageName}@${localVersion}`);
+    await $`npm publish`
+  } else {
+    console.log(`Publishing ${packageName}@${localVersion} - DRY RUN`);
+    await $`npm publish --dry-run`
+  }
 } else {
-  await $`npm publish --dry-run`
+  console.log(`${packageName}@${localVersion} is already published.`);
 }
