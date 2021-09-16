@@ -3,7 +3,7 @@ import { CommandModule, Argv } from 'yargs';
 import { join } from 'path';
 import createMockServer from '../server/createMockServer';
 import createAutoWiredConfig from '../util/createAutoWiredConfig';
-import createLogger from 'src/log/createLogger';
+import createLogger from '../log/createLogger';
 
 export class StartAutoWireCommand implements CommandModule {
   public readonly command = 'start:autowire';
