@@ -14,7 +14,7 @@ const isPublished = await($`npm view ${packageName} versions -json`)
   .catch(() => false);
 
 
-const branch = (await $`git branch --show-current`).stdout;
+const branch = (await $`git branch --show-current`).stdout.trim();
 
 if (!isPublished) {
   if (branch === 'master') {
