@@ -22,15 +22,15 @@ jobs:
       - name: npm install
         run: npm ci
       - name: build
-        run: npm build
+        run: npm run build
       - name: test
-        run: 'npm test:cov'
+        run: 'npm run test:cov'
       - name: delete node modules
         run: rm -rf ./node_modules
       - name: npm install - prod
         run: 'npm ci --production'
       - name: build - prod
-        run: 'npm build:prod'
+        run: 'npm run build:prod'
       - name: install zx
         run: 'npm i -g zx'
       - name: publish package
