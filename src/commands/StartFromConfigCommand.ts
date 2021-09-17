@@ -1,6 +1,5 @@
 import { ServerCredentials } from '@grpc/grpc-js';
 import { CommandModule, Argv } from 'yargs';
-import { join } from 'path';
 import { promises } from 'fs';
 import createMockServer from '../server/createMockServer';
 import createLogger from '../log/createLogger';
@@ -12,7 +11,7 @@ export class StartFromConfigCommand implements CommandModule {
   public builder(args: Argv): Argv<{ folder: string, silent: boolean }> {
     return args
       .option('folder', {
-        default: join(__dirname, 'grpc-server-mock.json'),
+        default: './grpc-server-mock.json',
         describe: 'Path to file with config.',
       })
       .option('silent', {

@@ -1,5 +1,4 @@
 import { CommandModule, Argv } from 'yargs';
-import { join } from 'path';
 import { promises } from 'fs';
 import createAutoWiredConfig from '../util/createAutoWiredConfig';
 
@@ -18,11 +17,11 @@ export class GenerateConfigCommand implements CommandModule {
         describe: 'Server port.',
       })
       .option('folder', {
-        default: join(__dirname, 'grpc-server-mock'),
+        default: '.',
         describe: 'Path to folder with files for autowireing.',
       })
       .option('output', {
-        default: join(__dirname, 'grpc-server-mock.json'),
+        default: './grpc-server-mock.json',
         describe: 'Desired path to output file.',
       });
   }

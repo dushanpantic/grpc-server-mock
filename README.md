@@ -13,6 +13,17 @@ npm install -g grpc-server-mock
 ### Start from auto-wire folder
 Starts the server from the given autowire config.
 
+```
+grpc-server-mock start:autowire
+```
+Options:
+```
+--host     Server host.                                [default: "127.0.0.1"]
+--port     Server port.                                    [default: "50051"]
+--folder   Path to folder with files for autowireing.          [default: "."]
+--silent   If true, noop logger will be used       [boolean] [default: false]
+```
+
 Expected format:
 ```
 |-- <autowire root folder>
@@ -52,6 +63,24 @@ Expected format:
 
 ### Start from config
 Starts the server from the target config.
+```
+grpc-server-mock start:config
+```
+Options:
+```
+--folder   Path to file with config.     [default: "./grpc-server-mock.json"]
+--silent   If true, noop logger will be used       [boolean] [default: false]
+```
 
 ### GenerateConfigCommand
 Generates Config file from target autowire folder.
+```
+grpc-server-mock generate:config
+```
+Options:
+```
+--host     Server host.                                [default: "127.0.0.1"]
+--port     Server port.                                    [default: "50051"]
+--folder   Path to folder with files for autowireing.          [default: "."]
+--output   Desired path to output file.  [default: "./grpc-server-mock.json"]
+```

@@ -1,6 +1,5 @@
 import { ServerCredentials } from '@grpc/grpc-js';
 import { CommandModule, Argv } from 'yargs';
-import { join } from 'path';
 import createMockServer from '../server/createMockServer';
 import createAutoWiredConfig from '../util/createAutoWiredConfig';
 import createLogger from '../log/createLogger';
@@ -20,7 +19,7 @@ export class StartAutoWireCommand implements CommandModule {
         describe: 'Server port.',
       })
       .option('folder', {
-        default: join(__dirname, 'grpc-server-mock'),
+        default: '.',
         describe: 'Path to folder with files for autowireing.',
       })
       .option('silent', {
