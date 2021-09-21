@@ -2,15 +2,15 @@
   "compilerOptions": {
     "module": "commonjs",
     "declaration": true,
-    "removeComments": false,
+    "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es2017",
-    "sourceMap": true,
+    "sourceMap": false,
     "outDir": "./dist",
     "baseUrl": "./",
     "incremental": false
   },
   "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+  "exclude": ["node_modules", "dist", "src/**/*.spec.ts"]
 }

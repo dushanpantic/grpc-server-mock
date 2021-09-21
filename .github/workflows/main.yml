@@ -23,18 +23,10 @@ jobs:
         run: npm ci
       - name: lint
         run: npm run lint
-      - name: build
-        run: npm run build
       - name: test
         run: 'npm run test:cov'
-      - name: delete node_modules
-        run: rm -rf ./node_modules
-      - name: delete dist
-        run: rm -rf ./dist
-      - name: npm install - prod
-        run: 'npm ci --production'
-      - name: build - prod
-        run: 'npm run build:prod'
+      - name: build
+        run: 'npm run build'
       - name: install zx
         run: 'npm i -g zx'
       - name: publish package
