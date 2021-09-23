@@ -2,8 +2,8 @@ syntax = "proto3";
 
 
 service SomeOtherSvc {
-  rpc first(Request) returns (Response);
-  rpc second(Request) returns (Response);
+  rpc First(Request) returns (Response);
+  rpc Second(Request) returns (Response);
 }
 
 

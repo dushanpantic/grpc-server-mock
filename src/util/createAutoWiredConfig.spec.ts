@@ -26,9 +26,8 @@ describe('util/createAutoWiredConfig', () => {
               name: 'SomeSvc',
               responseHandlers: [
                 {
-                  methodName: 'action',
-                  responses: [{ text: 'action' }, { text: 'equals' }, { text: 'reaction' },
-                  ],
+                  methodName: 'Action',
+                  responses: [{ text: 'action' }, { text: 'equals' }, { text: 'reaction' }],
                 },
               ],
             },
@@ -42,11 +41,11 @@ describe('util/createAutoWiredConfig', () => {
               name: 'SomeOtherSvc',
               responseHandlers: [
                 {
-                  methodName: 'first',
+                  methodName: 'First',
                   responses: [{ text: 'first-1' }, { text: 'first-1' }],
                 },
                 {
-                  methodName: 'second',
+                  methodName: 'Second',
                   responses: [{ text: 'second-1' }, { text: 'second-1' }],
                 },
               ],

@@ -15,7 +15,7 @@ describe('server/createDescriptor', () => {
     expect((descriptor as any).foo.bar.baz.Request).toBeDefined();
     expect((descriptor as any).foo.bar.baz.Response).toBeDefined();
     expect((descriptor as any).foo.bar.baz.SomeSvc).toBeDefined();
-    expect((descriptor as any).foo.bar.baz.SomeSvc.service.action).toBeDefined();
+    expect((descriptor as any).foo.bar.baz.SomeSvc.service.Action).toBeDefined();
   });
 
   it('creates descriptor for proto file without defined package', () => {
@@ -27,8 +27,8 @@ describe('server/createDescriptor', () => {
     expect(descriptor.Request).toBeDefined();
     expect(descriptor.Response).toBeDefined();
     expect(descriptor.SomeOtherSvc).toBeDefined();
-    expect((descriptor as any).SomeOtherSvc.service.first).toBeDefined();
-    expect((descriptor as any).SomeOtherSvc.service.second).toBeDefined();
+    expect((descriptor as any).SomeOtherSvc.service.First).toBeDefined();
+    expect((descriptor as any).SomeOtherSvc.service.Second).toBeDefined();
 
   });
 
