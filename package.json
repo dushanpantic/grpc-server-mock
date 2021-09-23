@@ -13,7 +13,7 @@
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\"",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test:cov": "jest -i --coverage --reporters=default --reporters=jest-junit",
-    "build": "rimraf dist && tsc"
+    "build": "rimraf dist && tsc --project tsconfig.prod.json"
   },
   "bin": {
     "grpc-server-mock": "./dist/cli.js"
