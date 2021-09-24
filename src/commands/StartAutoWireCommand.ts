@@ -40,13 +40,15 @@ export class StartAutoWireCommand implements CommandModule {
       args.folder as string
     );
 
-    const server = createMockServer(config, createLogger(!!args.silent));
+    const logger = createLogger(!!args.silent);
+    const server = createMockServer(config, logger);
 
     server.bindAsync(
       `${config.host}:${config.port}`,
       ServerCredentials.createInsecure(),
       () => {
         server.start();
+        logger.info(`Server started at ${config.host}:${config.port}`);
       }
     );
   }

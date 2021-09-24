@@ -1,0 +1,1 @@
+Running `grpc-server-mock start:autowire` from this folder will autowire `SearchService` from the `SearchService.proto` using the content provided in the `Search.json`.
