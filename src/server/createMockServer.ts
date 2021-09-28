@@ -35,11 +35,11 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               metadataMap: call.metadata.getMap(),
               metadataOptions: call.metadata.getOptions(),
             };
-            logger.info('Received call:', receivedData)
             let response: any;
             if (typeof curr.responses === 'function') {
               response = await curr.responses();
             } else {
+              logger.info(`[${service.name}::${curr.methodName}]Received call:`, receivedData)
               const responseIndex = getRandomInt(curr.responses.length);
               response = curr.responses[responseIndex];
             }

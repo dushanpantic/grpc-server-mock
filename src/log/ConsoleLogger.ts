@@ -4,6 +4,10 @@ import { ILogger } from './logger.interface';
 
 export class ConsoleLogger implements ILogger {
   public info(message: string, metadata: any): void {
-    console.info(message, metadata);
+    if (!metadata) {
+      console.log(message);
+    } else {
+      console.info(message, metadata);
+    }
   }
 }
