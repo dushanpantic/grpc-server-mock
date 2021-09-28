@@ -19,6 +19,26 @@ describe('util/createAutoWiredConfig', () => {
       port: 50051,
       protos: [
         {
+          packageName: 'multi.example',
+          protoFilePath: join(autowireFixtureDir, 'multiproto', 'main.proto'),
+          services: [
+            {
+              name: 'MultiSvc',
+              responseHandlers: [
+                {
+                  methodName: 'Action',
+                  responses: [{
+                    text: 'multi-proto',
+                    shard: {
+                      content: 'example'
+                    }
+                  }]
+                }
+              ]
+            },
+          ]
+        },
+        {
           packageName: 'foo.bar.baz',
           protoFilePath: join(autowireFixtureDir, 'packaged', 'foo.proto'),
           services: [

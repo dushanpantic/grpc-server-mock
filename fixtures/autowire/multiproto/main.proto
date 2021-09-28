@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package multi.example;
+
+import "util.proto";
+
+service MultiSvc {
+  rpc Action(Request) returns (Response);
+}
+
+
+message Request {
+  string text = 1;
+}
+
+message Response {
+  string text = 1;
+  util.example.Shard shard = 2;
+}

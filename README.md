@@ -12,7 +12,7 @@ npm install -g grpc-server-mock
 
 ### Start from auto-wire folder
 Starts the server from the given autowire config.
-An example can be found in the [examples folder.](./examples)
+An example can be found in the [examples folder.](./examples/autowire)
 
 ```
 grpc-server-mock start:autowire

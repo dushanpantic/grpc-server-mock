@@ -4,6 +4,8 @@ import { createInterface } from 'readline';
 import { IProto, IServerConfig, IService } from '../server/config';
 
 
+const ROOT_INFO = 'root.json';
+
 export default async function createAutoWiredConfig(
   host: string,
   port: string | number,
@@ -23,9 +25,17 @@ export default async function createAutoWiredConfig(
     const folderContent = await promises.readdir(protoFolderPath, {
       withFileTypes: true,
     });
-    const protoFileName = folderContent
-      .filter((x) => x.name.endsWith('.proto'))
-      .find(() => true).name;
+    const hasRootInfo = !!folderContent.find(x => x.name === ROOT_INFO);
+
+    let protoFileName: string;
+    if (hasRootInfo) {
+      const rootContent: { root: string } = JSON.parse(await promises.readFile(join(protoFolderPath, ROOT_INFO), { encoding: 'utf-8' }));
+      protoFileName = rootContent.root;
+    } else {
+      protoFileName = folderContent
+        .filter((x) => x.name.endsWith('.proto'))
+        .find(() => true).name;
+    }
     const protoFilePath = join(protoFolderPath, protoFileName);
 
     const readInterface = createInterface({
