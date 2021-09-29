@@ -7,7 +7,7 @@ export class ConsoleLogger implements ILogger {
     if (!metadata) {
       console.log(message);
     } else {
-      console.info(message, metadata);
+      console.info(message, JSON.stringify(metadata, undefined, 2));
     }
   }
 }
