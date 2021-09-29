@@ -48,7 +48,14 @@ Expected format:
 |   |   `-- <your_other.proto>
 `
 ```
+If your service is defined via multiple proto files, please provide the `root.json` file with the following format:
+```json
+{
+  "root":"<root_proto_name(proto where the service is defined)>.proto"
+}
+```
 
+Service method json format:
 ```json
 [
   {
