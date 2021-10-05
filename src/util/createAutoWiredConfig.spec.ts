@@ -12,11 +12,11 @@ describe('util/createAutoWiredConfig', () => {
       'autowire'
     );
     const host = '127.0.0.1';
-    const port = "50051";
+    const port = '50051';
 
     const expectedConfig: IServerConfig = {
       host: '127.0.0.1',
-      port: "50051",
+      port: '50051',
       responseDelay: 300,
       protos: [
         {
