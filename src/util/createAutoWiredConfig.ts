@@ -9,11 +9,13 @@ const ROOT_INFO = 'root.json';
 export default async function createAutoWiredConfig(
   host: string,
   port: string | number,
+  responseDelay: number,
   mockFolderPath: string
 ): Promise<IServerConfig> {
   const config: IServerConfig = {
     host,
     port,
+    responseDelay,
     protos: [],
   };
 

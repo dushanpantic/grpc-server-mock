@@ -1,6 +1,7 @@
 export interface IServerConfig {
   host: string;
   port: string | number;
+  responseDelay: number;
   protos: IProto[];
 }
 

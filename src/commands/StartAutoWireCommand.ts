@@ -8,7 +8,7 @@ export class StartAutoWireCommand implements CommandModule {
   public readonly command = 'start:autowire';
   public readonly describe = 'Autowires grpc server mock using the mock folder';
 
-  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, silent: boolean }> {
+  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, delay: string, silent: boolean }> {
     return args
       .option('host', {
         default: '127.0.0.1',
@@ -25,18 +25,27 @@ export class StartAutoWireCommand implements CommandModule {
       .option('silent', {
         default: false,
         boolean: true,
-        describe: 'If true, noop logger will be used',
+        describe: 'If set, noop logger will be used',
+      })
+      .option('delay', {
+        default: '0',
+        describe: 'Delay in milliseconds before returning response.',
       });
   }
 
   public async handler(args: {
-    [argName: string]: unknown;
+    host: string,
+    port: string,
+    folder: string,
+    delay: string,
+    silent: boolean
     _: (string | number)[];
     $0: string;
   }): Promise<void> {
     const config = await createAutoWiredConfig(
       args.host as string,
       args.port as string,
+      parseInt(args.delay),
       args.folder as string
     );
 

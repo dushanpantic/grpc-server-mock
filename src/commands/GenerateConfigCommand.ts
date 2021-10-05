@@ -6,7 +6,7 @@ export class GenerateConfigCommand implements CommandModule {
   public readonly command = 'generate:config';
   public readonly describe = 'Targets autowire folder and generates JSON config from it';
 
-  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, output: string }> {
+  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, output: string, delay: string }> {
     return args
       .option('host', {
         default: '127.0.0.1',
@@ -23,17 +23,26 @@ export class GenerateConfigCommand implements CommandModule {
       .option('output', {
         default: './grpc-server-mock.json',
         describe: 'Desired path to output file.',
+      })
+      .option('delay', {
+        default: '0',
+        describe: 'Delay in milliseconds before returning response.',
       });
   }
 
   public async handler(args: {
-    [argName: string]: unknown;
+    host: string,
+    port: string,
+    folder: string,
+    output: string,
+    delay: string
     _: (string | number)[];
     $0: string;
   }): Promise<void> {
     const config = await createAutoWiredConfig(
       args.host as string,
       args.port as string,
+      parseInt(args.delay),
       args.folder as string
     );
     await promises.writeFile(args.output as string, JSON.stringify(config, null, 2), { encoding: 'utf-8' });

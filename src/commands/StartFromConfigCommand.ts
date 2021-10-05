@@ -17,12 +17,13 @@ export class StartFromConfigCommand implements CommandModule {
       .option('silent', {
         default: false,
         boolean: true,
-        describe: 'If true, noop logger will be used',
+        describe: 'If set, noop logger will be used',
       });
   }
 
   public async handler(args: {
-    [argName: string]: unknown;
+    folder: string,
+    silent: boolean,
     _: (string | number)[];
     $0: string;
   }): Promise<void> {

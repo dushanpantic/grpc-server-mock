@@ -8,6 +8,7 @@ import { IResponseHandler, IServerConfig } from './config';
 import createDescriptor from './createDescriptor';
 import extractServiceDefinition from './extractServiceDefinition';
 import getRandomInt from '../util/getRandomInt';
+import delay from '../util/delay';
 import { ILogger } from '../log/logger.interface';
 
 
@@ -44,6 +45,7 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               response = curr.responses[responseIndex];
             }
             const md = new Metadata();
+            await delay(config.responseDelay);
             callback(null, response, md);
           };
           return acc;
