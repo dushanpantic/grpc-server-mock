@@ -8,7 +8,7 @@ export class StartAutoWireCommand implements CommandModule {
   public readonly command = 'start:autowire';
   public readonly describe = 'Autowires grpc server mock using the mock folder';
 
-  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, delay: string, silent: boolean }> {
+  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, delay: string, silent: boolean, ordered: boolean }> {
     return args
       .option('host', {
         default: '127.0.0.1',
@@ -30,6 +30,11 @@ export class StartAutoWireCommand implements CommandModule {
       .option('delay', {
         default: '0',
         describe: 'Delay in milliseconds before returning response.',
+      })
+      .option('ordered', {
+        default: false,
+        boolean: true,
+        describe: 'If set, responses will be ordered, otherwise they are random.'
       });
   }
 
@@ -38,7 +43,8 @@ export class StartAutoWireCommand implements CommandModule {
     port: string,
     folder: string,
     delay: string,
-    silent: boolean
+    silent: boolean,
+    ordered: boolean,
     _: (string | number)[];
     $0: string;
   }): Promise<void> {
@@ -46,7 +52,8 @@ export class StartAutoWireCommand implements CommandModule {
       args.host as string,
       args.port as string,
       parseInt(args.delay),
-      args.folder as string
+      args.folder as string,
+      args.ordered,
     );
 
     const logger = createLogger(!!args.silent);

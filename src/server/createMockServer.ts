@@ -27,6 +27,7 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
 
       const responseHandlers = service.responseHandlers.reduce(
         (acc: UntypedServiceImplementation, curr: IResponseHandler) => {
+          let nextIndex = 0;
           acc[curr.methodName] = async (
             call: ServerUnaryCall<unknown, unknown>, // ServerUnaryCallImpl<RequestType, ResponseType>
             callback: (err?: any, value?: any, trailer?: Metadata, flags?: any) => void
@@ -41,8 +42,14 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               response = await curr.responses();
             } else {
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
-              const responseIndex = getRandomInt(curr.responses.length);
-              response = curr.responses[responseIndex];
+              if (config.orderedResponses) {
+                const responseIndex = nextIndex++;
+                nextIndex %= curr.responses.length;
+                response = curr.responses[responseIndex];
+              } else {
+                const responseIndex = getRandomInt(curr.responses.length);
+                response = curr.responses[responseIndex];
+              }
             }
             const md = new Metadata();
             await delay(config.responseDelay);

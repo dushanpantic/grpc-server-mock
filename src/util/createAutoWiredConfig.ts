@@ -10,13 +10,15 @@ export default async function createAutoWiredConfig(
   host: string,
   port: string | number,
   responseDelay: number,
-  mockFolderPath: string
+  mockFolderPath: string,
+  orderedResponses: boolean
 ): Promise<IServerConfig> {
   const config: IServerConfig = {
     host,
     port,
     responseDelay,
     protos: [],
+    orderedResponses
   };
 
   const protoFolderPaths = (await promises.readdir(mockFolderPath, { withFileTypes: true }))
