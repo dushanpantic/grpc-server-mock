@@ -28,11 +28,12 @@ grpc-server-mock start:autowire
 ```
 Options:
 ```
---host     Server host.                                [default: "127.0.0.1"]
---port     Server port.                                    [default: "50051"]
---folder   Path to folder with files for autowireing.          [default: "."]
---silent   If set, noop logger will be used       [boolean] [default: false]
---delay    Delay in milliseconds before returning response.    [default: "0"]
+--host     Server host.                                               [default: "127.0.0.1"]
+--port     Server port.                                                   [default: "50051"]
+--folder   Path to folder with files for autowireing.                         [default: "."]
+--silent   If set, noop logger will be used                       [boolean] [default: false]
+--delay    Delay in milliseconds before returning response.                   [default: "0"]
+--ordered  If set, responses will be ordered instead of random.   [boolean] [default: false]
 ```
 
 Expected format:
@@ -86,8 +87,8 @@ grpc-server-mock start:config
 ```
 Options:
 ```
---folder   Path to file with config.     [default: "./grpc-server-mock.json"]
---silent   If set, noop logger will be used       [boolean] [default: false]
+--folder   Path to file with config.                    [default: "./grpc-server-mock.json"]
+--silent   If set, noop logger will be used                       [boolean] [default: false]
 ```
 
 ### GenerateConfigCommand
@@ -97,9 +98,10 @@ grpc-server-mock generate:config
 ```
 Options:
 ```
---host     Server host.                                [default: "127.0.0.1"]
---port     Server port.                                    [default: "50051"]
---folder   Path to folder with files for autowireing.          [default: "."]
---output   Desired path to output file.  [default: "./grpc-server-mock.json"]
---delay    Delay in milliseconds before returning response.    [default: "0"]
+--host     Server host.                                               [default: "127.0.0.1"]
+--port     Server port.                                                   [default: "50051"]
+--folder   Path to folder with files for autowireing.                         [default: "."]
+--output   Desired path to output file.                 [default: "./grpc-server-mock.json"]
+--delay    Delay in milliseconds before returning response.                   [default: "0"]
+--ordered  If set, responses will be ordered instead of random.   [boolean] [default: false]
 ```
