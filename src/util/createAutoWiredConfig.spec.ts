@@ -13,11 +13,13 @@ describe('util/createAutoWiredConfig', () => {
     );
     const host = '127.0.0.1';
     const port = '50051';
+    const orderedResponses = true;
 
     const expectedConfig: IServerConfig = {
       host: '127.0.0.1',
       port: '50051',
       responseDelay: 300,
+      orderedResponses: true,
       protos: [
         {
           packageName: 'multi.example',
@@ -75,7 +77,7 @@ describe('util/createAutoWiredConfig', () => {
         },
       ],
     };
-    const config = await createAutoWiredConfig(host, port, 300, autowireFixtureDir);
+    const config = await createAutoWiredConfig(host, port, 300, autowireFixtureDir, orderedResponses);
 
     expect(config).toEqual(expectedConfig);
   });
