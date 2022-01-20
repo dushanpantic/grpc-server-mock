@@ -41,14 +41,14 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               response = await curr.requests();
             } else {
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
-              if(config.randomResponses){
+              if (config.randomResponses) {
                 const responseIndex = getRandomInt(curr.requests.length);
                 response = curr.requests[responseIndex];
-              }else{
-              const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
-              if(requestAnswer) {
-                response = requestAnswer.output;
-              }
+              } else {
+                const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
+                if(requestAnswer) {
+                  response = requestAnswer.output;
+                }
               }
             }
             const md = new Metadata();
