@@ -1,8 +1,11 @@
 [
   {
-    "text": "multi-proto",
-    "shard": {
-      "content": "example"
+    "input": {},
+    "output": {
+      "text": "multi-proto",
+      "shard": {
+        "content": "example"
+      }
     }
   }
 ]

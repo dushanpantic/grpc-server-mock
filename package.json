@@ -39,8 +39,9 @@
   },
   "homepage": "https://github.com/dushanpantic/grpc-server-mock#readme",
   "dependencies": {
-    "@grpc/grpc-js": "^1.5.0",
+    "@grpc/grpc-js": "^1.5.2",
     "@grpc/proto-loader": "^0.6.9",
+    "lodash": "^4.17.21",
     "yargs": "^17.3.1"
   },
   "devDependencies": {
@@ -51,7 +52,10 @@
     "@typescript-eslint/eslint-plugin": "^5.9.0",
     "@typescript-eslint/parser": "^5.9.0",
     "eslint": "^8.6.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.4",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.7",
     "jest-junit": "^13.0.0",

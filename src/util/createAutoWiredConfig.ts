@@ -3,7 +3,6 @@ import { promises, createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { IProto, IServerConfig, IService } from '../server/config';
 
-
 const ROOT_INFO = 'root.json';
 
 export default async function createAutoWiredConfig(
@@ -11,14 +10,14 @@ export default async function createAutoWiredConfig(
   port: string | number,
   responseDelay: number,
   mockFolderPath: string,
-  orderedResponses: boolean
+  randomResponses: boolean
 ): Promise<IServerConfig> {
   const config: IServerConfig = {
     host,
     port,
     responseDelay,
     protos: [],
-    orderedResponses
+    randomResponses
   };
 
   const protoFolderPaths = (await promises.readdir(mockFolderPath, { withFileTypes: true }))
@@ -92,7 +91,7 @@ export default async function createAutoWiredConfig(
             0,
             methodFileName.length - '.json'.length
           ),
-          responses: fileContentParsed,
+          requests: fileContentParsed,
         });
       }
 

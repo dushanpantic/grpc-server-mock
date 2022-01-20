@@ -3,7 +3,7 @@ export interface IServerConfig {
   port: string | number;
   responseDelay: number;
   protos: IProto[];
-  orderedResponses: boolean;
+  randomResponses: boolean;
 }
 
 export interface IProto {
@@ -19,5 +19,5 @@ export interface IService {
 
 export interface IResponseHandler {
   methodName: string;
-  responses: any[] | (() => Promise<any>);
+  requests: any[] | (() => Promise<any>);
 }

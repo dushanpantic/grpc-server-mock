@@ -13,13 +13,13 @@ describe('util/createAutoWiredConfig', () => {
     );
     const host = '127.0.0.1';
     const port = '50051';
-    const orderedResponses = true;
+    const randomResponses = true;
 
     const expectedConfig: IServerConfig = {
       host: '127.0.0.1',
       port: '50051',
       responseDelay: 300,
-      orderedResponses: true,
+      randomResponses: true,
       protos: [
         {
           packageName: 'multi.example',
@@ -30,11 +30,13 @@ describe('util/createAutoWiredConfig', () => {
               responseHandlers: [
                 {
                   methodName: 'Action',
-                  responses: [{
-                    text: 'multi-proto',
+                  requests: [{
+                    input:{},
+                    output: {
+                      text: 'multi-proto',
                     shard: {
                       content: 'example'
-                    }
+                    }}
                   }]
                 }
               ]
@@ -50,7 +52,7 @@ describe('util/createAutoWiredConfig', () => {
               responseHandlers: [
                 {
                   methodName: 'Action',
-                  responses: [{ text: 'action' }, { text: 'equals' }, { text: 'reaction' }],
+                  requests: [{ input:{}, output: { text: 'action' }}, { input:{}, output: { text: 'equals' }}, { input:{}, output: { text: 'reaction' }}],
                 },
               ],
             },
@@ -65,11 +67,11 @@ describe('util/createAutoWiredConfig', () => {
               responseHandlers: [
                 {
                   methodName: 'First',
-                  responses: [{ text: 'first-1' }, { text: 'first-1' }],
+                  requests: [{ input:{}, output: {text: 'first-1' }}, { input:{}, output: {text: 'first-1' }}],
                 },
                 {
                   methodName: 'Second',
-                  responses: [{ text: 'second-1' }, { text: 'second-1' }],
+                  requests: [{ input:{}, output: {text: 'second-1' }}, { input:{}, output: {text: 'second-1' }}],
                 },
               ],
             },
@@ -77,7 +79,7 @@ describe('util/createAutoWiredConfig', () => {
         },
       ],
     };
-    const config = await createAutoWiredConfig(host, port, 300, autowireFixtureDir, orderedResponses);
+    const config = await createAutoWiredConfig(host, port, 300, autowireFixtureDir, randomResponses);
 
     expect(config).toEqual(expectedConfig);
   });
