@@ -3,7 +3,7 @@ export interface IServerConfig {
   port: string | number;
   responseDelay: number;
   protos: IProto[];
-  randomResponses: boolean;
+  matchedResponses: boolean;
   orderedResponses: boolean;
 }
 

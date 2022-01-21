@@ -5,7 +5,7 @@ import { loadSync, Options } from '@grpc/proto-loader';
 
 export default function createDescriptor(protoFile: string): GrpcObject {
   const loaderOptions: Options = {
-    keepCase: false,
+    keepCase: true,
     enums: String,
     defaults: true,
     oneofs: true,

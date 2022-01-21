@@ -10,7 +10,7 @@ import extractServiceDefinition from './extractServiceDefinition';
 import getRandomInt from '../util/getRandomInt';
 import delay from '../util/delay';
 import { ILogger } from '../log/logger.interface';
-import { isEqual } from 'lodash';
+import isEqual from '../util/isEqual';
 
 export default function createMockServer(config: IServerConfig, logger: ILogger) {
   const server = new Server();
@@ -42,19 +42,19 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               response = await curr.requests();
             } else {
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
-              if (config.randomResponses) {
+              if (config.matchedResponses) {
+                const responseIndex = getRandomInt(curr.requests.length);
+                response = curr.requests[responseIndex];
+              } else {
                 if (config.orderedResponses) {
                   const responseIndex = nextIndex++;
                   nextIndex %= curr.requests.length;
                   response = curr.requests[responseIndex];
-                }else{
-                  const responseIndex = getRandomInt(curr.requests.length);
-                  response = curr.requests[responseIndex];
-                }
-              } else {
-                const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
-                if(requestAnswer) {
-                  response = requestAnswer.output;
+                } else {
+                  const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
+                  if(requestAnswer) {
+                    response = requestAnswer.output;
+                  }
                 }
               }
             }

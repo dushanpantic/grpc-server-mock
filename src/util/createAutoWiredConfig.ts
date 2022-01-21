@@ -10,7 +10,7 @@ export default async function createAutoWiredConfig(
   port: string | number,
   responseDelay: number,
   mockFolderPath: string,
-  randomResponses: boolean,
+  matchedResponses: boolean,
   orderedResponses: boolean
 ): Promise<IServerConfig> {
   const config: IServerConfig = {
@@ -18,7 +18,7 @@ export default async function createAutoWiredConfig(
     port,
     responseDelay,
     protos: [],
-    randomResponses,
+    matchedResponses,
     orderedResponses,
   };
 

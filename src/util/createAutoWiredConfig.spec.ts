@@ -13,14 +13,14 @@ describe('util/createAutoWiredConfig', () => {
     );
     const host = '127.0.0.1';
     const port = '50051';
-    const randomResponses = true;
+    const matchedResponses = true;
     const orderedResponses = false;
 
     const expectedConfig: IServerConfig = {
       host: '127.0.0.1',
       port: '50051',
       responseDelay: 300,
-      randomResponses: true,
+      matchedResponses: true,
       orderedResponses: false,
       protos: [
         {
@@ -81,7 +81,7 @@ describe('util/createAutoWiredConfig', () => {
         },
       ],
     };
-    const config = await createAutoWiredConfig(host, port, 300, autowireFixtureDir, randomResponses, orderedResponses);
+    const config = await createAutoWiredConfig(host, port, 300, autowireFixtureDir, matchedResponses, orderedResponses);
 
     expect(config).toEqual(expectedConfig);
   });
