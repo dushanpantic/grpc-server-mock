@@ -4,6 +4,7 @@ export interface IServerConfig {
   responseDelay: number;
   protos: IProto[];
   randomResponses: boolean;
+  orderedResponses: boolean;
 }
 
 export interface IProto {
