@@ -70,12 +70,22 @@ Service method json format:
 ```json
 [
   {
-    "your_message_field_1": "<value>",
-    "your_message_field_2": "<value>",
+    "input": {
+      "your_message_field_1": "<value>"
+    },
+    "output": {
+      "your_message_response_field_1": "<value>",
+      "your_message_response_field_2": "<value>"
+    }
   },
   {
-    "your_message_field_1": "<value>",
-    "your_message_field_2": "<value>",
+    "input": {
+      "your_message_field_2": "<value>",
+      "your_message_field_3": "<value>"
+    },
+    "output": {
+      "your_message_response_field_2": "<value>"
+    }
   }
 ]
 ```
