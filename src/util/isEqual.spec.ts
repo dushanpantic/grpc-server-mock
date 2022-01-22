@@ -163,6 +163,10 @@ describe('util/isEqual', () => {
       first: { a: ['^water.*'] },
       second: { a: ['hwaters'] }
     },
+    {
+      first: { a: ['^water.*'], b: 'b' },
+      second: { a: ['hwaters'], b: 'b'}
+    },
   ].forEach(data => {
     it('tests non matching inputs with string regex matching', () => {
       expect(isEqual(data.first, data.second, true)).toBe(false);
