@@ -24,6 +24,10 @@ describe('util/isEqual', () => {
       second: { a: 'b' }
     },
     {
+      first: { a: 'b', b: 'a', c: 'd' },
+      second: { a: 'b', c: 'd', b: 'a' }
+    },
+    {
       first: { complex: { something: true, arr: [{ b: 'c' }], bool: true, nested: { val: [5] } }, array: [1, 2, '3', false, { a: 'b', b: { c: ['3'] } }] },
       second: { complex: { something: true, arr: [{ b: 'c' }], bool: true, nested: { val: [5] } }, array: [1, 2, '3', false, { a: 'b', b: { c: ['3'] } }] }
     }
