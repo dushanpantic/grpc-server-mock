@@ -89,6 +89,14 @@ Service method json format:
   }
 ]
 ```
+If you wish to ignore certain folders that dont contain method response files, you can do so by adding the `ignoreServiceFolders` array field in the aforementioned `root.json`.
+
+The following example will not take the folder `common` into consideration, when crafting responses, but it will still load `.proto` files from it.
+```
+{
+  "ignoreServiceFolders": ["common"]
+}
+```
 
 ### Start from config
 Starts the server from the target config.
