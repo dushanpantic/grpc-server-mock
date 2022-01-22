@@ -25,24 +25,13 @@ export default function isEqual(first: any, second: any, regexMatch = false): bo
   }
 
   if (firstIsArray) {
-    if(!regexMatch){
-     first.sort();
-     second.sort();
-    }
     return first.length === second.length
       && first.every((elem, index) => isEqual(elem, second[index], regexMatch));
   }
 
   if (typeofFirst === 'object') {
-    const sortedFirstKeySet = regexMatch ? first : Object.fromEntries(
-        Object.entries(first).sort(([,a]:any,[,b]:any) => a-b)
-    );
-    const sortedSecondKeySet = regexMatch ? second : Object.fromEntries(
-        Object.entries(second).sort(([,a]:any,[,b]:any) => a-b)
-    );
-
-    const firstKeysSet = new Set(Object.keys(sortedFirstKeySet));
-    const secondKeysSet = new Set(Object.keys(sortedSecondKeySet));
+    const firstKeysSet = new Set(Object.keys(first));
+    const secondKeysSet = new Set(Object.keys(second));
     if (firstKeysSet.size !== secondKeysSet.size) {
       return false;
     }
