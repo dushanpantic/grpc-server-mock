@@ -4,7 +4,12 @@ import { createInterface } from 'readline';
 import { IProto, IServerConfig, IService } from '../server/config';
 
 
-const ROOT_INFO = 'root.json';
+const FILE_NAME_ROOT_INFO = 'root.json';
+
+interface IRootInfo {
+  root?: string,
+  ignoreServiceFolders?: string[],
+}
 
 export default async function createAutoWiredConfig(
   host: string,
@@ -29,17 +34,18 @@ export default async function createAutoWiredConfig(
     const folderContent = await promises.readdir(protoFolderPath, {
       withFileTypes: true,
     });
-    const hasRootInfo = !!folderContent.find(x => x.name === ROOT_INFO);
+    const hasRootInfo = !!folderContent.find(x => x.name === FILE_NAME_ROOT_INFO);
 
-    let protoFileName: string;
+    let rootContent: IRootInfo = {};
     if (hasRootInfo) {
-      const rootContent: { root: string } = JSON.parse(await promises.readFile(join(protoFolderPath, ROOT_INFO), { encoding: 'utf-8' }));
-      protoFileName = rootContent.root;
-    } else {
-      protoFileName = folderContent
+      rootContent = JSON.parse(await promises.readFile(join(protoFolderPath, FILE_NAME_ROOT_INFO), { encoding: 'utf-8' }));
+    }
+
+    const protoFileName = rootContent.root
+      ?? folderContent
         .filter((x) => x.name.endsWith('.proto'))
         .find(() => true).name;
-    }
+
     const protoFilePath = join(protoFolderPath, protoFileName);
 
     const readInterface = createInterface({
@@ -63,9 +69,14 @@ export default async function createAutoWiredConfig(
       packageName,
       services: [],
     };
+    
+    /* istanbul ignore next */
+    rootContent.ignoreServiceFolders ??= [];
+
     const serviceFolderNames = folderContent
       .filter((x) => x.isDirectory())
-      .map((dir) => dir.name);
+      .map((dir) => dir.name)
+      .filter((name) => !rootContent.ignoreServiceFolders.includes(name));
 
     for (const serviceFolderName of serviceFolderNames) {
       const serviceFolderPath = join(protoFolderPath, serviceFolderName);
