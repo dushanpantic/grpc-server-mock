@@ -1,7 +1,7 @@
 /**
- * 
- * @param first 
- * @param second 
+ *
+ * @param first
+ * @param second
  * @param regexMatch if true, string values will be compared using regex, where first is made into RegExp, while second is used as `.test()` value
  * @returns boolean which determines if first and second have same values.
  */
@@ -25,13 +25,24 @@ export default function isEqual(first: any, second: any, regexMatch = false): bo
   }
 
   if (firstIsArray) {
+    if(!regexMatch){
+     first.sort();
+     second.sort();
+    }
     return first.length === second.length
       && first.every((elem, index) => isEqual(elem, second[index], regexMatch));
   }
 
   if (typeofFirst === 'object') {
-    const firstKeysSet = new Set(Object.keys(first));
-    const secondKeysSet = new Set(Object.keys(second));
+    const sortedFirstKeySet = regexMatch ? first : Object.fromEntries(
+        Object.entries(first).sort(([,a]:any,[,b]:any) => a-b)
+    );
+    const sortedSecondKeySet = regexMatch ? second : Object.fromEntries(
+        Object.entries(second).sort(([,a]:any,[,b]:any) => a-b)
+    );
+
+    const firstKeysSet = new Set(Object.keys(sortedFirstKeySet));
+    const secondKeysSet = new Set(Object.keys(sortedSecondKeySet));
     if (firstKeysSet.size !== secondKeysSet.size) {
       return false;
     }

@@ -20,7 +20,7 @@ describe('util/isEqual', () => {
       second: ['a', 'b', 'c']
     },
     {
-      first: ['a', 'c', 'c'],
+      first: ['a', 'd', 'b'],
       second: ['a', 'b', 'd']
     },
     {
@@ -37,6 +37,34 @@ describe('util/isEqual', () => {
     }
   ].forEach(data => {
     it('tests matching inputs without string regex matching', () => {
+      expect(isEqual(data.first, data.second, false)).toBe(true);
+      expect(isEqual(data.first, data.second)).toBe(true);
+    })
+  });
+
+  [
+    {
+      first: ['a', 'b', 'c'],
+      second: ['a', 'b', 'c']
+    },
+    {
+      first: ['a', 'd', 'b'],
+      second: ['a', 'b', 'd']
+    },
+    {
+      first: { a: 'b' },
+      second: { a: 'b' }
+    },
+    {
+      first: { a: 'b', b: 'a', c: 'd' },
+      second: { a: 'b', c: 'd', b:'a' }
+    },
+    {
+      first: { complex: { something: true, arr: [{ b: 'c' }], bool: true, nested: { val: [5] } }, array: [1, 2, '3', false, { a: 'b', b: { c: ['3'] } }] },
+      second: { complex: { bool: true, nested: { val: [5] }, something: true, arr: [{ b: 'c' }] }, array: [1, 2, '3', false, { a: 'b', b: { c: ['3'] } }] }
+    }
+  ].forEach(data => {
+    it('tests matching inputs without string regex matching ignoring property order', () => {
       expect(isEqual(data.first, data.second, false)).toBe(true);
       expect(isEqual(data.first, data.second)).toBe(true);
     })
