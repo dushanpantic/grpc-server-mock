@@ -57,8 +57,6 @@ jobs:
           key: ${{ github.sha }}
       - name: install zx
         run: 'npm i -g zx'
-      - name: publish-dry-run
-        run: npm publish --dry-run
       - name: publish package
         run: zx ./publish.mjs
         env:
