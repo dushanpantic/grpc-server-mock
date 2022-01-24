@@ -12,7 +12,7 @@ message SearchRequest {
   string query = 1;
   int32 page_number = 2;
   int32 result_per_page = 3;
-  SearchType subscription_type = 2;
+  SearchType subscription_type = 4;
 }
 
 message SearchResponse {
