@@ -1,11 +1,20 @@
 [
   {
-    "text": "action"
+    "input": {},
+    "output": {
+      "text": "action"
+    }
   },
   {
-    "text": "equals"
+    "input": {},
+    "output": {
+      "text": "equals"
+    }
   },
   {
-    "text": "reaction"
+    "input": {},
+    "output": {
+      "text": "reaction"
+    }
   }
 ]

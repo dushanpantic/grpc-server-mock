@@ -1,7 +1,7 @@
 /**
- * 
- * @param first 
- * @param second 
+ *
+ * @param first
+ * @param second
  * @param regexMatch if true, string values will be compared using regex, where first is made into RegExp, while second is used as `.test()` value
  * @returns boolean which determines if first and second have same values.
  */

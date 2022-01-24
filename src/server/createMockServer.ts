@@ -10,7 +10,7 @@ import extractServiceDefinition from './extractServiceDefinition';
 import getRandomInt from '../util/getRandomInt';
 import delay from '../util/delay';
 import { ILogger } from '../log/logger.interface';
-
+import isEqual from '../util/isEqual';
 
 export default function createMockServer(config: IServerConfig, logger: ILogger) {
   const server = new Server();
@@ -38,17 +38,24 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               metadataOptions: call.metadata.getOptions(),
             };
             let response: any;
-            if (typeof curr.responses === 'function') {
-              response = await curr.responses();
+            if (typeof curr.requests === 'function') {
+              response = await curr.requests();
             } else {
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
-              if (config.orderedResponses) {
-                const responseIndex = nextIndex++;
-                nextIndex %= curr.responses.length;
-                response = curr.responses[responseIndex];
+              if (config.matchedResponses) {
+                const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
+                if(requestAnswer) {
+                  response = requestAnswer.output;
+                }
               } else {
-                const responseIndex = getRandomInt(curr.responses.length);
-                response = curr.responses[responseIndex];
+                if (config.orderedResponses) {
+                  const responseIndex = nextIndex++;
+                  nextIndex %= curr.requests.length;
+                  response = curr.requests[responseIndex];
+                } else {
+                  const responseIndex = getRandomInt(curr.requests.length);
+                  response = curr.requests[responseIndex];
+                }
               }
             }
             const md = new Metadata();
