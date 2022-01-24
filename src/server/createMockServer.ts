@@ -44,8 +44,13 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
               if (config.matchedResponses) {
                 const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
-                if(requestAnswer) {
+                if (requestAnswer) {
                   response = requestAnswer.output;
+                } else {
+                  logger.error(
+                    `[${new Date().toISOString()}][${service.name}::${curr.methodName}] No matching response found for input:\n`,
+                    receivedData
+                  );
                 }
               } else {
                 if (config.orderedResponses) {
