@@ -33,10 +33,10 @@ export class GenerateConfigCommand implements CommandModule {
         boolean: true,
         describe: 'If set, responses will be ordered, otherwise they are random.'
       })
-      .option('matchRequest', {
+      .option('matched', {
         default: false,
         boolean: true,
-        describe: 'If set, responses will be ordered, otherwise they are random.'
+        describe: 'If set, received inputs will be matched to provided outputs.'
       });
   }
 
@@ -47,7 +47,7 @@ export class GenerateConfigCommand implements CommandModule {
     output: string,
     delay: string,
     ordered: boolean,
-    matchRequest: boolean,
+    matched: boolean,
     _: (string | number)[];
     $0: string;
   }): Promise<void> {
@@ -56,7 +56,7 @@ export class GenerateConfigCommand implements CommandModule {
       args.port as string,
       parseInt(args.delay),
       args.folder as string,
-      args.matchRequest,
+      args.matched,
       args.ordered,
     );
     await promises.writeFile(args.output as string, JSON.stringify(config, null, 2), { encoding: 'utf-8' });
