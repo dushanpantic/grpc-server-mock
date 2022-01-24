@@ -43,18 +43,18 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
             } else {
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
               if (config.matchedResponses) {
-                const responseIndex = getRandomInt(curr.requests.length);
-                response = curr.requests[responseIndex];
+                const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
+                if(requestAnswer) {
+                  response = requestAnswer.output;
+                }
               } else {
                 if (config.orderedResponses) {
                   const responseIndex = nextIndex++;
                   nextIndex %= curr.requests.length;
                   response = curr.requests[responseIndex];
                 } else {
-                  const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
-                  if(requestAnswer) {
-                    response = requestAnswer.output;
-                  }
+                  const responseIndex = getRandomInt(curr.requests.length);
+                  response = curr.requests[responseIndex];
                 }
               }
             }
