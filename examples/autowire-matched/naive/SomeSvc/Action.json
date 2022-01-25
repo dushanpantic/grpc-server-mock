@@ -1,0 +1,18 @@
+[
+  {
+    "input": {
+      "text": "I want action!"
+    },
+    "output": {
+      "text": "Action!"
+    }
+  },
+  {
+    "input": {
+      "text": "I want reaction!"
+    },
+    "output": {
+      "text": "Reaction!"
+    }
+  }
+]

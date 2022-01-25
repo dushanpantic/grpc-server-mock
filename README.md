@@ -28,12 +28,13 @@ grpc-server-mock start:autowire
 ```
 Options:
 ```
---host     Server host.                                               [default: "127.0.0.1"]
---port     Server port.                                                   [default: "50051"]
---folder   Path to folder with files for autowireing.                         [default: "."]
---silent   If set, noop logger will be used                       [boolean] [default: false]
---delay    Delay in milliseconds before returning response.                   [default: "0"]
---ordered  If set, responses will be ordered instead of random.   [boolean] [default: false]
+--host     Server host.                                                       [default: "127.0.0.1"]
+--port     Server port.                                                           [default: "50051"]
+--folder   Path to folder with files for autowireing.                                 [default: "."]
+--silent   If set, noop logger will be used                               [boolean] [default: false]
+--delay    Delay in milliseconds before returning response.                           [default: "0"]
+--ordered  If set, responses will be ordered instead of random.           [boolean] [default: false]
+--matched  If set, received inputs will be matched to provided outputs.     [boolean][default:false]
 ```
 
 Expected format:
@@ -66,7 +67,7 @@ If your service is defined via multiple proto files, please provide the `root.js
 }
 ```
 
-Service method json format:
+Service method json format for default mode:
 ```json
 [
   {
@@ -79,6 +80,33 @@ Service method json format:
   }
 ]
 ```
+
+Service method json format for `--matched` mode:
+```json
+[
+  {
+    "input": {
+      "your_message_field_1": "<value>"
+    },
+    "output": {
+      "your_message_response_field_1": "<value>",
+      "your_message_response_field_2": "<value>"
+    }
+  },
+  {
+    "input": {
+      "your_message_field_2": "<value>",
+      "your_message_field_3": "<value>"
+    },
+    "output": {
+      "your_message_response_field_2": "<value>"
+    }
+  }
+]
+```
+
+
+
 If you wish to ignore certain folders that dont contain method response files, you can do so by adding the `ignoreServiceFolders` array field in the aforementioned `root.json`.
 
 The following example will not take the folder `common` into consideration, when crafting responses, but it will still load `.proto` files from it.
@@ -106,10 +134,11 @@ grpc-server-mock generate:config
 ```
 Options:
 ```
---host     Server host.                                               [default: "127.0.0.1"]
---port     Server port.                                                   [default: "50051"]
---folder   Path to folder with files for autowireing.                         [default: "."]
---output   Desired path to output file.                 [default: "./grpc-server-mock.json"]
---delay    Delay in milliseconds before returning response.                   [default: "0"]
---ordered  If set, responses will be ordered instead of random.   [boolean] [default: false]
+--host     Server host.                                                       [default: "127.0.0.1"]
+--port     Server port.                                                           [default: "50051"]
+--folder   Path to folder with files for autowireing.                                 [default: "."]
+--output   Desired path to output file.                         [default: "./grpc-server-mock.json"]
+--delay    Delay in milliseconds before returning response.                           [default: "0"]
+--ordered  If set, responses will be ordered instead of random.           [boolean] [default: false]
+--matched  If set, received inputs will be matched to provided outputs.     [boolean][default:false]
 ```

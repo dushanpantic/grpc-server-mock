@@ -1,8 +1,14 @@
 [
   {
-    "text": "first-1"
+    "input": {},
+    "output": {
+      "text": "first-1"
+    }
   },
   {
-    "text": "first-1"
+    "input": {},
+    "output": {
+      "text": "first-1"
+    }
   }
 ]

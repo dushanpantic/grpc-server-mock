@@ -8,7 +8,15 @@ export class StartAutoWireCommand implements CommandModule {
   public readonly command = 'start:autowire';
   public readonly describe = 'Autowires grpc server mock using the mock folder';
 
-  public builder(args: Argv): Argv<{ host: string, port: string, folder: string, delay: string, silent: boolean, ordered: boolean }> {
+  public builder(args: Argv): Argv<{
+    host: string,
+    port: string,
+    folder: string,
+    delay: string,
+    silent: boolean,
+    ordered: boolean,
+    matched: boolean,
+  }> {
     return args
       .option('host', {
         default: '127.0.0.1',
@@ -35,6 +43,11 @@ export class StartAutoWireCommand implements CommandModule {
         default: false,
         boolean: true,
         describe: 'If set, responses will be ordered, otherwise they are random.'
+      })
+      .option('matched', {
+        default: false,
+        boolean: true,
+        describe: 'If set, received inputs will be matched to provided outputs.'
       });
   }
 
@@ -45,6 +58,7 @@ export class StartAutoWireCommand implements CommandModule {
     delay: string,
     silent: boolean,
     ordered: boolean,
+    matched: boolean,
     _: (string | number)[];
     $0: string;
   }): Promise<void> {
@@ -53,6 +67,7 @@ export class StartAutoWireCommand implements CommandModule {
       args.port as string,
       parseInt(args.delay),
       args.folder as string,
+      args.matched,
       args.ordered,
     );
 

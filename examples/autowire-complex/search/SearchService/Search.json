@@ -1,0 +1,37 @@
+[
+  {
+    "results": [
+      {
+        "url": "https://www.cncf.io",
+        "title": "Cloud Native Computing Foundation",
+        "snippets": ["Kubernetes", "gRPC", "envoy", "cloudevents", "SPIFFE"]
+      },
+      {
+        "url": "https://openusage.org",
+        "title": "Open Usage Commons",
+        "snippets": ["Istio", "Angular", "Gerrit Code Review"]
+      }
+    ],
+    "total_count": 2
+  },
+  {
+    "results": [
+      {
+        "url": "https://aws.amazon.com",
+        "title": "Cloud Services - Amazon Web Services (AWS)",
+        "snippets": ["Amazin Elasticsearch Service", "AWS Lambda", "Amazon EKS Anywhere"]
+      },
+      {
+        "url": "https://cloud.google.com",
+        "title": "Cloud Computing Services | Google Cloud",
+        "snippets": ["Google Kubernetes Engine", "Cloud Functions", "Stackdriver"]
+      },
+      {
+        "url": "https://azure.microsoft.com/en-us/",
+        "title": "Cloud Computing Services | Microsoft Azure",
+        "snippets": ["Azure Event Grid", "Azure Kubernetes Service", "Azure Functions"]
+      }
+    ],
+    "total_count": 3
+  }
+]

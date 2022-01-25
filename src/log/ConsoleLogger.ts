@@ -10,4 +10,20 @@ export class ConsoleLogger implements ILogger {
       console.info(message, JSON.stringify(metadata, undefined, 2));
     }
   }
+
+  public warn(message: string, metadata?: any): void {
+    if (!metadata) {
+      console.warn(message);
+    } else {
+      console.warn(message, JSON.stringify(metadata, undefined, 2));
+    }
+  }
+
+  public error(message: string, metadata?: any): void {
+    if (!metadata) {
+      console.error(message);
+    } else {
+      console.error(message, JSON.stringify(metadata, undefined, 2));
+    }
+  }
 }
