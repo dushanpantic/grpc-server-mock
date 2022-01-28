@@ -43,7 +43,7 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
             } else {
               logger.info(`[${new Date().toISOString()}][${service.name}::${curr.methodName}] Received call:\n`, receivedData)
               if (config.matchedResponses) {
-                const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request));
+                const requestAnswer = curr.requests.find(r => isEqual(r.input, call.request, !!r.regexMatch));
                 if (requestAnswer) {
                   response = requestAnswer.output;
                 } else {
