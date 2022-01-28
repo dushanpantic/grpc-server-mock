@@ -1,7 +1,7 @@
 [
   {
     "input": {
-      "text": "(a|b|c)"
+      "text": "^(a|b|c)$"
     },
     "output": {
       "text": "Action!"
