@@ -1,0 +1,20 @@
+[
+  {
+    "input": {
+      "text": "(a | b | c)"
+    },
+    "output": {
+      "text": "Action!"
+    },
+    "regexMatch": true
+  },
+  {
+    "input": {
+      "text": ".*am.*"
+    },
+    "output": {
+      "text": "Reaction!"
+    },
+    "regexMatch": true
+  }
+]
