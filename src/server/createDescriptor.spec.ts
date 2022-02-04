@@ -1,12 +1,20 @@
+import { Options } from '@grpc/proto-loader';
 import { join } from 'path'
 import createDescriptor from './createDescriptor';
 
 describe('server/createDescriptor', () => {
 
+  const loaderOptions: Options = {
+    keepCase: true,
+    enums: String,
+    defaults: true,
+    oneofs: true,
+  };
+
   it('creates descriptor for proto file with defined package', () => {
     const protoWithNamespace = join(__dirname, '..', '..', 'fixtures', 'protos', 'foo.proto');
 
-    const descriptor = createDescriptor(protoWithNamespace);
+    const descriptor = createDescriptor(protoWithNamespace, loaderOptions);
 
     expect(descriptor).toBeDefined();
     expect(descriptor.foo).toBeDefined();
@@ -21,7 +29,7 @@ describe('server/createDescriptor', () => {
   it('creates descriptor for proto file without defined package', () => {
     const protoWithoutNamespace = join(__dirname, '..', '..', 'fixtures', 'protos', 'bar.proto');
 
-    const descriptor = createDescriptor(protoWithoutNamespace);
+    const descriptor = createDescriptor(protoWithoutNamespace, loaderOptions);
 
     expect(descriptor).toBeDefined();
     expect(descriptor.Request).toBeDefined();

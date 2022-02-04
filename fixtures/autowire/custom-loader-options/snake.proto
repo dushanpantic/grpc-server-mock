@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package snake.case.package;
+
+service SnakeSvc {
+  rpc Action(Request) returns (Response);
+}
+
+
+message Request {
+  string some_text = 1;
+}
+
+message Response {
+  string some_response_text = 1;
+}

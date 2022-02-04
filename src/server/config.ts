@@ -1,3 +1,5 @@
+import { Options } from '@grpc/proto-loader';
+
 export interface IServerConfig {
   host: string;
   port: string | number;
@@ -11,6 +13,7 @@ export interface IProto {
   protoFilePath: string;
   packageName: string;
   services: IService[];
+  loaderOptions: Partial<Options>;
 }
 
 export interface IService {

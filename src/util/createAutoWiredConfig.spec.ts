@@ -24,8 +24,28 @@ describe('util/createAutoWiredConfig', () => {
       orderedResponses: false,
       protos: [
         {
+          packageName: 'snake.case.package',
+          protoFilePath: join(autowireFixtureDir, 'custom-loader-options', 'snake.proto'),
+          loaderOptions: {
+            keepCase: false,
+            defaults: false
+          },
+          services: [
+            {
+              name: 'SnakeSvc',
+              responseHandlers: [
+                {
+                  methodName: 'Action',
+                  requests: [{ someResponseText: 'snake' }, { someResponseText: 'case' }, { someResponseText: 'example' }],
+                },
+              ],
+            },
+          ],
+        },
+        {
           packageName: 'multi.example',
           protoFilePath: join(autowireFixtureDir, 'multiproto', 'main.proto'),
+          loaderOptions: {},
           services: [
             {
               name: 'MultiSvc',
@@ -33,12 +53,10 @@ describe('util/createAutoWiredConfig', () => {
                 {
                   methodName: 'Action',
                   requests: [{
-                    input:{},
-                    output: {
-                      text: 'multi-proto',
+                    text: 'multi-proto',
                     shard: {
                       content: 'example'
-                    }}
+                    }
                   }]
                 }
               ]
@@ -48,13 +66,14 @@ describe('util/createAutoWiredConfig', () => {
         {
           packageName: 'foo.bar.baz',
           protoFilePath: join(autowireFixtureDir, 'packaged', 'foo.proto'),
+          loaderOptions: {},
           services: [
             {
               name: 'SomeSvc',
               responseHandlers: [
                 {
                   methodName: 'Action',
-                  requests: [{ input:{}, output: { text: 'action' }}, { input:{}, output: { text: 'equals' }}, { input:{}, output: { text: 'reaction' }}],
+                  requests: [{ text: 'action' }, { text: 'equals' }, { text: 'reaction' }],
                 },
               ],
             },
@@ -63,17 +82,18 @@ describe('util/createAutoWiredConfig', () => {
         {
           packageName: '',
           protoFilePath: join(autowireFixtureDir, 'packageless', 'bar.proto'),
+          loaderOptions: {},
           services: [
             {
               name: 'SomeOtherSvc',
               responseHandlers: [
                 {
                   methodName: 'First',
-                  requests: [{ input:{}, output: {text: 'first-1' }}, { input:{}, output: {text: 'first-1' }}],
+                  requests: [{ text: 'first-1' }, { text: 'first-1' }],
                 },
                 {
                   methodName: 'Second',
-                  requests: [{ input:{}, output: {text: 'second-1' }}, { input:{}, output: {text: 'second-1' }}],
+                  requests: [{ text: 'second-1' }, { text: 'second-1' }],
                 },
               ],
             },

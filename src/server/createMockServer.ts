@@ -16,7 +16,7 @@ export default function createMockServer(config: IServerConfig, logger: ILogger)
   const server = new Server();
 
   for (const protoDetails of config.protos) {
-    const descriptor = createDescriptor(protoDetails.protoFilePath);
+    const descriptor = createDescriptor(protoDetails.protoFilePath, protoDetails.loaderOptions);
 
     for (const service of protoDetails.services) {
       const serviceDefinition = extractServiceDefinition(

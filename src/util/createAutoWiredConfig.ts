@@ -2,9 +2,11 @@ import { join } from 'path';
 import { promises, createReadStream } from 'fs';
 import { createInterface } from 'readline';
 import { IProto, IServerConfig, IService } from '../server/config';
+import { Options } from '@grpc/proto-loader';
 
 
 const FILE_NAME_ROOT_INFO = 'root.json';
+const FILE_NAME_LOADER_OPTIONS = 'loaderOptions.json';
 
 interface IRootInfo {
   root?: string,
@@ -36,8 +38,8 @@ export default async function createAutoWiredConfig(
     const folderContent = await promises.readdir(protoFolderPath, {
       withFileTypes: true,
     });
-    const hasRootInfo = !!folderContent.find(x => x.name === FILE_NAME_ROOT_INFO);
 
+    const hasRootInfo = !!folderContent.find(x => x.name === FILE_NAME_ROOT_INFO);
     let rootContent: IRootInfo = {};
     if (hasRootInfo) {
       rootContent = JSON.parse(await promises.readFile(join(protoFolderPath, FILE_NAME_ROOT_INFO), { encoding: 'utf-8' }));
@@ -47,6 +49,12 @@ export default async function createAutoWiredConfig(
       ?? folderContent
         .filter((x) => x.name.endsWith('.proto'))
         .find(() => true).name;
+
+    const hasLoaderOptions = !!folderContent.find(x => x.name === FILE_NAME_LOADER_OPTIONS);
+    let requestedLoaderOptions: Partial<Options> = {};
+    if(hasLoaderOptions) {
+      requestedLoaderOptions = JSON.parse(await promises.readFile(join(protoFolderPath, FILE_NAME_LOADER_OPTIONS), { encoding: 'utf-8' }));
+    }
 
     const protoFilePath = join(protoFolderPath, protoFileName);
 
@@ -70,6 +78,7 @@ export default async function createAutoWiredConfig(
       protoFilePath: protoFilePath,
       packageName,
       services: [],
+      loaderOptions: requestedLoaderOptions
     };
     
     /* istanbul ignore next */

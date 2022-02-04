@@ -1,7 +1,5 @@
 # grpc-server-mock
 
-**Documentation will be improved in the near future**
-
 ## Installation
 
 ```
@@ -82,7 +80,7 @@ Service method json format for default mode:
 ```
 
 Service method json format for `--matched` mode:
-```json
+```jsonc
 [
   {
     "input": {
@@ -91,7 +89,7 @@ Service method json format for `--matched` mode:
     "output": {
       "your_message_response_field_1": "<value>",
       "your_message_response_field_2": "<value>"
-    }
+    },
   },
   {
     "input": {
@@ -100,7 +98,14 @@ Service method json format for `--matched` mode:
     },
     "output": {
       "your_message_response_field_2": "<value>"
-    }
+    },
+
+    /**
+    * Optional field.
+    * If set, actual request value
+    * will be regex matched against the provided input.
+    */
+    "regexMatch": true
   }
 ]
 ```
@@ -115,6 +120,11 @@ The following example will not take the folder `common` into consideration, when
   "ignoreServiceFolders": ["common"]
 }
 ```
+
+#### Custom Loader Options
+
+If you wish to pass custom loader options, provide a `loaderOptions.json` next to you `.proto` file. See the list of options in the [@grpc/proto-loader package](https://www.npmjs.com/package/@grpc/proto-loader).
+
 
 ### Start from config
 Starts the server from the target config.
