@@ -1,5 +1,7 @@
 # grpc-server-mock
 
+An easy way to run a mock gRPC server.
+
 ## Installation
 
 ```
